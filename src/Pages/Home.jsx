@@ -12,7 +12,7 @@ export default function Home() {
         event.preventDefault();
         console.log(uname);
         console.log(password);
-        
+
     }
 
 
@@ -24,13 +24,20 @@ export default function Home() {
 
             <form onSubmit={handleform}>
 
-            <label>Username</label>
-            <input type="text" value={uname} onChange={(event) => setUname(event.target.value)} />
+                <label>Username</label>
+                <input type="text" value={uname} onChange={(event) => setUname(event.target.value)} />
+                <br></br>
+                <br></br>
+                
+                <label>Password</label>
+                <input type="password" value={password} onChange={(event) => setpassword(event.target.value)} />
 
-            <label>Password</label>
-            <input type="password" value={password} onChange={(event) => setpassword(event.target.value)} />
+                <br></br>
+                <br></br>
 
-            <button>Save</button>
+
+
+                <button>Save</button>
 
             </form>
 
