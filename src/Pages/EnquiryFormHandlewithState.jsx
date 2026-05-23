@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom'
 import Header from '../common/Header'
 
 
+
+
 export default function Contact() {
 
-        // Enquiry form handle with state using controled components
+    // Enquiry form handle with state using controled components
 
 
     let [formData, setformData] = useState({
@@ -47,41 +49,83 @@ export default function Contact() {
 
         let checkFilterUser = userData.filter((v) => v.uemail == formData.uemail || v.uphone == formData.uphone);
 
-        if (checkFilterUser.length == 1) {
-            alert("Email or Phone already exist........")
+        if (formData.index === "") {
+
+            if (checkFilterUser.length == 1) {
+
+                alert("Email or Phone already exist........");
+            } else {
+
+                let allUserData = [...userData, currentUserFormData];
+                setuserData(allUserData);
+                setformData({
+                    uname: '',
+                    uemail: '',
+                    uphone: '',
+                    umessage: '',
+                    index: ''
+                })
+
+            }
         } else {
 
-            let allUserData = [...userData, currentUserFormData];
-            setuserData(allUserData);
-            setformData({
-                uname: '',
-                uemail: '',
-                uphone: '',
-                umessage: '',
-                index: ''
-            })
+            let editIndex = formData.index;
+            let oldData = userData;
 
+            let checkFilterUser = userData.filter((v, i) => (v.uemail == formData.uemail || v.uphone == formData.uphone) && i != editIndex);
+
+            if (checkFilterUser.length == 0) {
+
+
+
+                oldData[editIndex]["uname"] = formData.uname;
+                oldData[editIndex]["uemail"] = formData.uemail;
+                oldData[editIndex]["uphone"] = formData.uphone;
+                oldData[editIndex]["umessage"] = formData.umessage;
+                setuserData(oldData)
+                setformData({
+                    uname: '',
+                    uemail: '',
+                    uphone: '',
+                    umessage: '',
+                    index: ''
+                })
+            } else {
+                alert("Email or Phone already exist........");
+
+            }
         }
-
-
-
 
 
 
         event.preventDefault();
     }
 
-        // Delete Row in User Data State
+    // Delete Row in User Data State
 
 
-    let deleteRow=(index)=>{
-        let filterDataAfterDelete = userData.filter((v,i)=> i!= index)
+    let deleteRow = (index) => {
+        let filterDataAfterDelete = userData.filter((v, i) => i != index)
         setuserData(filterDataAfterDelete);
+    }
+
+
+    // Update Row in User Data State
+
+
+
+    let editRow = (index) => {
+
+        let editData = userData.filter((v, i) => i == index)[0];
+        editData['index'] = index;
+        setformData(editData);
+
     }
 
 
     return (
         <div><h1>CONTACT PAGE</h1>
+
 
             <Header></Header>
 
@@ -115,7 +159,7 @@ export default function Contact() {
 
             </form>
 
-        {/* // Show User Data form State in Table Tags */}
+            {/* // Show User Data form State in Table Tags */}
 
 
             <table border={1} >
@@ -143,8 +187,8 @@ export default function Contact() {
                                     <td>{obj.uphone}</td>
                                     <td>{obj.umessage}</td>
                                     <td>
-                                        <button onClick={()=>deleteRow(i)}>Delete</button>
-                                        <button>Edit</button>
+                                        <button onClick={() => deleteRow(i)}>Delete</button>
+                                        <button onClick={() => editRow(i)}>Update</button>
                                     </td>
                                 </tr>
 

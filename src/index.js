@@ -6,9 +6,9 @@ import Header from './common/Header';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './Pages/Home';
 import About from './Pages/About';
-import Contact from './Pages/Contact';
 import Blog from './Pages/blog';
 import BlogDetails from './Pages/BlogDetails';
+import EnquiryForm from './Pages/EnquiryFormHandlewithState';
 import Error404 from './Pages/Error404';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,7 +22,7 @@ let allRoutes = createBrowserRouter(
     element: <About />,
   }, {
     path: 'contact',
-    element: <Contact />,
+    element: <EnquiryForm/>
   }, {
     path: 'blog',
     element: <Blog />,
